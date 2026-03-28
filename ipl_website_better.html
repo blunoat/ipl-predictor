@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IPL 2026 Prediction Vault</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #0a0e1a; --card: #111827; --card2: #161d2e;
+            --border: rgba(255,255,255,0.07); --primary: #e8531a;
+            --primary-glow: rgba(232,83,26,0.25); --gold: #f5b800;
+            --gold-glow: rgba(245,184,0,0.2); --text: #e8eaf0;
+            --muted: #7a8299; --radius: 14px;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family:'DM Sans',sans-serif; background:var(--bg); color:var(--text);
+            min-height:100vh; padding:24px 16px 60px;
+            background-image:
+                radial-gradient(ellipse 80% 40% at 50% -10%,rgba(232,83,26,0.12) 0%,transparent 70%),
+                radial-gradient(ellipse 60% 30% at 80% 90%,rgba(245,184,0,0.06) 0%,transparent 60%);
+        }
+        .container { max-width:780px; margin:auto; }
+        .header { text-align:center; margin-bottom:32px; padding-top:12px; }
+        .header-badge {
+            display:inline-block; background:var(--primary); color:white;
+            font-size:11px; font-weight:600; letter-spacing:2px; text-transform:uppercase;
+            padding:4px 14px; border-radius:20px; margin-bottom:14px;
+        }
+        .header h1 {
+            font-family:'Bebas Neue',sans-serif; font-size:clamp(42px,9vw,76px);
+            line-height:0.95; letter-spacing:2px;
+            background:linear-gradient(135deg,#fff 30%,var(--gold) 100%);
+            -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+            margin-bottom:10px;
+        }
+        .header-sub { color:var(--muted); font-size:14px; }
+
+        /* MATCH CARD */
+        .match-card {
+            background:var(--card); border:1px solid var(--border);
+            border-top:2px solid var(--primary); border-radius:var(--radius);
+            padding:24px 28px; margin-bottom:24px;
+        }
+        .match-label { font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); margin-bottom:12px; }
+        .match-teams { display:flex; align-items:center; justify-content:space-between; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
+        .team-name { font-family:'Bebas Neue',sans-serif; font-size:32px; letter-spacing:1px; color:white; }
+        .vs-badge {
+            background:var(--card2); border:1px solid var(--border); border-radius:8px;
+            padding:6px 14px; font-family:'Bebas Neue',sans-serif; font-size:20px; color:var(--muted);
+        }
+        .match-meta { font-size:13px; color:var(--muted); margin-bottom:14px; }
+        .match-meta span { color:var(--text); font-weight:500; }
+        .countdown-row { display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:10px; }
+        .countdown-label { font-size:11px; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); }
+        #countdown {
+            font-family:'Bebas Neue',sans-serif; font-size:34px;
+            letter-spacing:3px; color:var(--gold); text-shadow:0 0 20px var(--gold-glow);
+        }
+        #countdown.closed { color:var(--muted); font-size:20px; }
+        .no-match { text-align:center; padding:32px; color:var(--muted); font-size:15px; }
+        .no-match .icon { font-size:36px; margin-bottom:10px; }
+
+        /* FORM */
+        .form-card {
+            background:var(--card); border:1px solid var(--border);
+            border-radius:var(--radius); padding:32px; margin-bottom:24px;
+        }
+        .form-card-title {
+            font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:1.5px;
+            color:var(--muted); margin-bottom:24px; padding-bottom:14px; border-bottom:1px solid var(--border);
+        }
+        .form-grid { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+        .form-group { display:flex; flex-direction:column; gap:7px; }
+        .form-group.full { grid-column:1/-1; }
+        label { font-size:11px; font-weight:600; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); }
+        input,select {
+            background:var(--card2); border:1px solid var(--border); border-radius:8px;
+            color:var(--text); padding:13px 16px; font-size:14px; font-family:'DM Sans',sans-serif;
+            outline:none; transition:border-color 0.2s,box-shadow 0.2s;
+            -webkit-appearance:none; appearance:none; width:100%;
+        }
+        input::placeholder { color:var(--muted); opacity:0.6; }
+        input:focus,select:focus { border-color:var(--primary); box-shadow:0 0 0 3px var(--primary-glow); }
+        select {
+            background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%237a8299' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
+            background-repeat:no-repeat; background-position:right 14px center; padding-right:36px; cursor:pointer;
+        }
+        select option { background:#1a2236; }
+        #submit-btn {
+            grid-column:1/-1; background:var(--primary); color:white; border:none;
+            padding:16px; border-radius:10px; cursor:pointer; font-size:15px; font-weight:700;
+            letter-spacing:1.5px; text-transform:uppercase; font-family:'DM Sans',sans-serif;
+            transition:background 0.2s,transform 0.15s,box-shadow 0.2s; margin-top:8px;
+            box-shadow:0 4px 20px var(--primary-glow);
+        }
+        #submit-btn:hover:not(:disabled) { background:#ff6533; transform:translateY(-1px); box-shadow:0 6px 28px rgba(232,83,26,0.4); }
+        #submit-btn:disabled { background:#2a2f3e; color:var(--muted); cursor:not-allowed; box-shadow:none; }
+
+        /* TOAST */
+        #toast {
+            position:fixed; bottom:30px; left:50%;
+            transform:translateX(-50%) translateY(80px);
+            background:#1e2a3a; border:1px solid var(--primary); color:var(--text);
+            padding:12px 24px; border-radius:30px; font-size:14px; font-weight:500;
+            transition:transform 0.35s ease; z-index:100; white-space:nowrap;
+        }
+        #toast.show { transform:translateX(-50%) translateY(0); }
+
+        /* TABLE */
+        .table-card { background:var(--card); border:1px solid var(--border); border-radius:var(--radius); overflow:hidden; }
+        .table-header { padding:20px 24px 16px; border-bottom:1px solid var(--border); display:flex; align-items:center; justify-content:space-between; }
+        .table-header-title { font-family:'Bebas Neue',sans-serif; font-size:22px; letter-spacing:1.5px; color:var(--muted); }
+        .entry-count { background:var(--primary); color:white; font-size:12px; font-weight:700; padding:3px 10px; border-radius:20px; display:none; }
+        .table-wrap { overflow-x:auto; }
+        table { width:100%; border-collapse:collapse; }
+        thead th {
+            background:var(--card2); padding:13px 18px; text-align:left;
+            font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:1.5px; color:var(--muted); white-space:nowrap;
+        }
+        tbody tr { border-top:1px solid var(--border); transition:background 0.15s; }
+        tbody tr:hover { background:rgba(255,255,255,0.025); }
+        tbody td { padding:14px 18px; font-size:14px; vertical-align:middle; }
+        .td-name { font-weight:600; }
+        .team-chip {
+            display:inline-block; padding:3px 10px; border-radius:20px; font-size:12px; font-weight:700;
+            background:rgba(232,83,26,0.12); color:var(--primary); border:1px solid rgba(232,83,26,0.25);
+        }
+        .delete-btn {
+            background:transparent; border:1px solid rgba(255,80,80,0.25); color:#ff6b6b;
+            padding:5px 12px; border-radius:6px; cursor:pointer; font-size:12px;
+            font-family:'DM Sans',sans-serif; transition:background 0.2s;
+        }
+        .delete-btn:hover { background:rgba(255,80,80,0.1); border-color:#ff6b6b; }
+        .empty-state { text-align:center; padding:48px 24px; color:var(--muted); }
+        .empty-state .empty-icon { font-size:40px; margin-bottom:12px; }
+        .empty-state p { font-size:14px; }
+
+        @media(max-width:540px){
+            .form-grid{grid-template-columns:1fr;}
+            .form-group.full,#submit-btn{grid-column:1;}
+            .form-card{padding:22px 18px;} .match-card{padding:18px;}
+            .team-name{font-size:24px;}
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="header">
+        <div class="header-badge">🏏 IPL 2026</div>
+        <h1>Prediction<br>Vault</h1>
+        <p class="header-sub">Lock your picks before the first ball is bowled</p>
+    </div>
+
+    <div class="match-card" id="matchCard">
+        <div class="match-label">Today's Match</div>
+        <div id="matchContent"><div class="no-match"><div class="icon">⏳</div>Loading...</div></div>
+    </div>
+
+    <div class="form-card" id="formCard">
+        <div class="form-card-title">Your Prediction</div>
+        <div class="form-grid">
+            <div class="form-group full">
+                <label>Your Name</label>
+                <input type="text" id="friendName" placeholder="Who is predicting?">
+            </div>
+            <div class="form-group full">
+                <label>Match Winner</label>
+                <select id="winner"></select>
+            </div>
+            <div class="form-group">
+                <label>🟠 Orange Cap</label>
+                <input type="text" id="orangeCap" placeholder="Top batter name">
+            </div>
+            <div class="form-group">
+                <label>🟣 Purple Cap</label>
+                <input type="text" id="purpleCap" placeholder="Top bowler name">
+            </div>
+            <button id="submit-btn" onclick="savePrediction()">Lock Entry 🔒</button>
+        </div>
+    </div>
+
+    <div class="table-card">
+        <div class="table-header">
+            <div class="table-header-title" id="tableTitle">Today's Predictions</div>
+            <div class="entry-count" id="entry-count"></div>
+        </div>
+        <div class="table-wrap">
+            <table>
+                <thead><tr><th>Name</th><th>Winner Pick</th><th>Orange Cap</th><th>Purple Cap</th><th></th></tr></thead>
+                <tbody id="tableBody"></tbody>
+            </table>
+            <div class="empty-state" id="empty-state">
+                <div class="empty-icon">🏟️</div>
+                <p>No predictions yet. Be the first!</p>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="toast"></div>
+
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+import { getDatabase, ref, push, onValue, remove } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+const firebaseConfig = {
+    apiKey: "AIzaSyDOAtRU-qcGqJl8nyggJWJXQ8EpKA8pQHo",
+    authDomain: "ipl-website-92aa4.firebaseapp.com",
+    databaseURL: "https://ipl-website-92aa4-default-rtdb.firebaseio.com",
+    projectId: "ipl-website-92aa4",
+    storageBucket: "ipl-website-92aa4.firebasestorage.app",
+    messagingSenderId: "940108209622",
+    appId: "1:940108209622:web:494e9ae858b16962c95877"
+};
+
+const app = initializeApp(firebaseConfig);
+const db  = getDatabase(app);
+
+// ── FULL IPL 2026 SCHEDULE ──
+const schedule = [
+    {date:"2026-03-28",team1:"RCB", team2:"SRH", time:"19:30",venue:"Bengaluru"},
+    {date:"2026-03-29",team1:"CSK", team2:"MI",  time:"19:30",venue:"Chennai"},
+    {date:"2026-03-30",team1:"DC",  team2:"KKR", time:"19:30",venue:"Delhi"},
+    {date:"2026-03-31",team1:"RR",  team2:"PBKS",time:"19:30",venue:"Jaipur"},
+    {date:"2026-04-01",team1:"GT",  team2:"LSG", time:"19:30",venue:"Ahmedabad"},
+    {date:"2026-04-02",team1:"SRH", team2:"CSK", time:"19:30",venue:"Hyderabad"},
+    {date:"2026-04-03",team1:"MI",  team2:"RCB", time:"19:30",venue:"Mumbai"},
+    {date:"2026-04-04",team1:"KKR", team2:"RR",  time:"15:30",venue:"Kolkata"},
+    {date:"2026-04-04",team1:"DC",  team2:"GT",  time:"19:30",venue:"Delhi"},
+    {date:"2026-04-05",team1:"PBKS",team2:"LSG", time:"15:30",venue:"Mohali"},
+    {date:"2026-04-05",team1:"CSK", team2:"SRH", time:"19:30",venue:"Chennai"},
+    {date:"2026-04-06",team1:"RCB", team2:"KKR", time:"19:30",venue:"Bengaluru"},
+    {date:"2026-04-07",team1:"GT",  team2:"MI",  time:"19:30",venue:"Ahmedabad"},
+    {date:"2026-04-08",team1:"RR",  team2:"DC",  time:"19:30",venue:"Jaipur"},
+    {date:"2026-04-09",team1:"LSG", team2:"RCB", time:"19:30",venue:"Lucknow"},
+    {date:"2026-04-10",team1:"SRH", team2:"KKR", time:"19:30",venue:"Hyderabad"},
+    {date:"2026-04-11",team1:"PBKS",team2:"MI",  time:"15:30",venue:"Mohali"},
+    {date:"2026-04-11",team1:"CSK", team2:"GT",  time:"19:30",venue:"Chennai"},
+    {date:"2026-04-12",team1:"DC",  team2:"LSG", time:"15:30",venue:"Delhi"},
+    {date:"2026-04-12",team1:"RR",  team2:"RCB", time:"19:30",venue:"Jaipur"},
+    {date:"2026-04-13",team1:"KKR", team2:"MI",  time:"19:30",venue:"Kolkata"},
+    {date:"2026-04-14",team1:"SRH", team2:"PBKS",time:"19:30",venue:"Hyderabad"},
+    {date:"2026-04-15",team1:"GT",  team2:"RR",  time:"19:30",venue:"Ahmedabad"},
+    {date:"2026-04-16",team1:"LSG", team2:"CSK", time:"19:30",venue:"Lucknow"},
+    {date:"2026-04-17",team1:"RCB", team2:"DC",  time:"19:30",venue:"Bengaluru"},
+    {date:"2026-04-18",team1:"MI",  team2:"SRH", time:"15:30",venue:"Mumbai"},
+    {date:"2026-04-18",team1:"PBKS",team2:"KKR", time:"19:30",venue:"Mohali"},
+    {date:"2026-04-19",team1:"GT",  team2:"CSK", time:"15:30",venue:"Ahmedabad"},
+    {date:"2026-04-19",team1:"RR",  team2:"LSG", time:"19:30",venue:"Jaipur"},
+    {date:"2026-04-20",team1:"DC",  team2:"SRH", time:"19:30",venue:"Delhi"},
+    {date:"2026-04-21",team1:"KKR", team2:"RCB", time:"19:30",venue:"Kolkata"},
+    {date:"2026-04-22",team1:"MI",  team2:"GT",  time:"19:30",venue:"Mumbai"},
+    {date:"2026-04-23",team1:"CSK", team2:"PBKS",time:"19:30",venue:"Chennai"},
+    {date:"2026-04-24",team1:"LSG", team2:"DC",  time:"19:30",venue:"Lucknow"},
+    {date:"2026-04-25",team1:"RCB", team2:"RR",  time:"15:30",venue:"Bengaluru"},
+    {date:"2026-04-25",team1:"SRH", team2:"MI",  time:"19:30",venue:"Hyderabad"},
+    {date:"2026-04-26",team1:"KKR", team2:"GT",  time:"15:30",venue:"Kolkata"},
+    {date:"2026-04-26",team1:"PBKS",team2:"DC",  time:"19:30",venue:"Mohali"},
+    {date:"2026-04-27",team1:"RR",  team2:"CSK", time:"19:30",venue:"Jaipur"},
+    {date:"2026-04-28",team1:"LSG", team2:"MI",  time:"19:30",venue:"Lucknow"},
+    {date:"2026-04-29",team1:"RCB", team2:"GT",  time:"19:30",venue:"Bengaluru"},
+    {date:"2026-04-30",team1:"KKR", team2:"CSK", time:"19:30",venue:"Kolkata"},
+    {date:"2026-05-01",team1:"DC",  team2:"RR",  time:"19:30",venue:"Delhi"},
+    {date:"2026-05-02",team1:"SRH", team2:"LSG", time:"15:30",venue:"Hyderabad"},
+    {date:"2026-05-02",team1:"MI",  team2:"PBKS",time:"19:30",venue:"Mumbai"},
+    {date:"2026-05-03",team1:"GT",  team2:"KKR", time:"15:30",venue:"Ahmedabad"},
+    {date:"2026-05-03",team1:"RCB", team2:"CSK", time:"19:30",venue:"Bengaluru"},
+    {date:"2026-05-04",team1:"RR",  team2:"SRH", time:"19:30",venue:"Jaipur"},
+    {date:"2026-05-05",team1:"DC",  team2:"MI",  time:"19:30",venue:"Delhi"},
+    {date:"2026-05-06",team1:"PBKS",team2:"GT",  time:"19:30",venue:"Mohali"},
+    {date:"2026-05-07",team1:"CSK", team2:"KKR", time:"19:30",venue:"Chennai"},
+    {date:"2026-05-08",team1:"LSG", team2:"RR",  time:"19:30",venue:"Lucknow"},
+    {date:"2026-05-09",team1:"SRH", team2:"RCB", time:"15:30",venue:"Hyderabad"},
+    {date:"2026-05-09",team1:"MI",  team2:"DC",  time:"19:30",venue:"Mumbai"},
+    {date:"2026-05-10",team1:"GT",  team2:"PBKS",time:"15:30",venue:"Ahmedabad"},
+    {date:"2026-05-10",team1:"KKR", team2:"LSG", time:"19:30",venue:"Kolkata"},
+    {date:"2026-05-12",team1:"Qualifier 1",team2:"TBD",time:"19:30",venue:"TBD"},
+    {date:"2026-05-13",team1:"Eliminator", team2:"TBD",time:"19:30",venue:"TBD"},
+    {date:"2026-05-15",team1:"Qualifier 2",team2:"TBD",time:"19:30",venue:"TBD"},
+    {date:"2026-05-17",team1:"FINAL",       team2:"TBD",time:"19:30",venue:"TBD"},
+];
+
+function getTodayIST() {
+    const ist = new Date(Date.now() + 5.5*3600000);
+    return ist.toISOString().slice(0,10);
+}
+
+function getTodayMatch() {
+    const today = getTodayIST();
+    const matches = schedule.filter(m => m.date === today);
+    return matches.length ? matches[matches.length-1] : null;
+}
+
+function getKickoff(match) {
+    return new Date(`${match.date}T${match.time}:00+05:30`).getTime();
+}
+
+let todayMatch = getTodayMatch();
+let matchKey   = todayMatch ? (todayMatch.date+"_"+todayMatch.team1+"_"+todayMatch.team2).replace(/\s/g,"_") : null;
+
+function showToast(msg) {
+    const t = document.getElementById('toast');
+    t.textContent = msg; t.classList.add('show');
+    setTimeout(()=>t.classList.remove('show'), 2800);
+}
+
+function renderMatch() {
+    const content   = document.getElementById("matchContent");
+    const winnerSel = document.getElementById("winner");
+    const submitBtn = document.getElementById("submit-btn");
+    const formCard  = document.getElementById("formCard");
+
+    if (!todayMatch) {
+        content.innerHTML = `<div class="no-match"><div class="icon">🏖️</div><p>No IPL match today — check back tomorrow!</p></div>`;
+        formCard.style.display = "none";
+        document.getElementById("tableTitle").textContent = "No Match Today";
+        return;
+    }
+
+    const {team1:t1, team2:t2, venue, time} = todayMatch;
+    const kickoff = getKickoff(todayMatch);
+    const locked  = Date.now() >= kickoff;
+
+    content.innerHTML = `
+        <div class="match-teams">
+            <div class="team-name">${t1}</div>
+            <div class="vs-badge">VS</div>
+            <div class="team-name">${t2}</div>
+        </div>
+        <div class="match-meta">📍 <span>${venue}</span> &nbsp;·&nbsp; 🕐 <span>${time} IST</span></div>
+        <div class="countdown-row">
+            <div class="countdown-label">Predictions lock at kickoff</div>
+            <div id="countdown" class="${locked?'closed':''}">${locked?"PREDICTIONS CLOSED 🚫":"Calculating..."}</div>
+        </div>`;
+
+    winnerSel.innerHTML = `<option value="${t1}">${t1}</option><option value="${t2}">${t2}</option>`;
+
+    if (locked) {
+        submitBtn.disabled = true;
+        submitBtn.textContent = "Entries Closed";
+    } else {
+        startCountdown(kickoff);
+    }
+
+    document.getElementById("tableTitle").textContent = `${t1} vs ${t2} — Predictions`;
+    loadTable();
+}
+
+function startCountdown(kickoff) {
+    const tick = () => {
+        const cd = document.getElementById("countdown");
+        if (!cd) return;
+        const dist = kickoff - Date.now();
+        if (dist <= 0) {
+            cd.textContent = "PREDICTIONS CLOSED 🚫"; cd.classList.add("closed");
+            document.getElementById("submit-btn").disabled = true;
+            document.getElementById("submit-btn").textContent = "Entries Closed";
+            return;
+        }
+        const h=Math.floor(dist/3600000), m=Math.floor(dist%3600000/60000), s=Math.floor(dist%60000/1000);
+        cd.textContent = String(h).padStart(2,'0')+"h "+String(m).padStart(2,'0')+"m "+String(s).padStart(2,'0')+"s";
+        setTimeout(tick, 1000);
+    };
+    tick();
+}
+
+window.savePrediction = async function() {
+    const name   = document.getElementById('friendName').value.trim();
+    const winner = document.getElementById('winner').value;
+    const orange = document.getElementById('orangeCap').value.trim();
+    const purple = document.getElementById('purpleCap').value.trim();
+    if (!name||!orange||!purple) { showToast("⚠️ Please fill all fields!"); return; }
+    if (!matchKey) return;
+    const btn = document.getElementById('submit-btn');
+    btn.disabled=true; btn.textContent="Saving…";
+    try {
+        await push(ref(db,'predictions/'+matchKey), {name,winner,orange,purple,ts:Date.now()});
+        document.getElementById('friendName').value='';
+        document.getElementById('orangeCap').value='';
+        document.getElementById('purpleCap').value='';
+        showToast("✅ Entry locked!");
+    } catch(e) { showToast("❌ Error saving. Try again."); console.error(e); }
+    finally { btn.disabled=false; btn.textContent="Lock Entry 🔒"; }
+};
+
+window.deleteEntry = function(key) {
+    remove(ref(db,'predictions/'+matchKey+'/'+key));
+    showToast("🗑️ Entry removed.");
+};
+
+function loadTable() {
+    if (!matchKey) return;
+    onValue(ref(db,'predictions/'+matchKey), snap => {
+        const tbody=document.getElementById('tableBody');
+        const empty=document.getElementById('empty-state');
+        const counter=document.getElementById('entry-count');
+        tbody.innerHTML='';
+        const data=snap.val();
+        if (!data) { empty.style.display='block'; counter.style.display='none'; return; }
+        empty.style.display='none';
+        const entries=Object.entries(data);
+        counter.style.display='inline-block';
+        counter.textContent=entries.length+(entries.length===1?' entry':' entries');
+        entries.forEach(([key,p])=>{
+            const tr=document.createElement('tr');
+            tr.innerHTML=`
+                <td class="td-name">${esc(p.name)}</td>
+                <td><span class="team-chip">${esc(p.winner)}</span></td>
+                <td>${esc(p.orange)}</td>
+                <td>${esc(p.purple)}</td>
+                <td><button class="delete-btn" onclick="deleteEntry('${key}')">Remove</button></td>`;
+            tbody.appendChild(tr);
+        });
+    });
+}
+
+function esc(s){ const d=document.createElement('div'); d.appendChild(document.createTextNode(s)); return d.innerHTML; }
+
+renderMatch();
+</script>
+</body>
+</html>
