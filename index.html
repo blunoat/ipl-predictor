@@ -214,66 +214,146 @@ const db  = getDatabase(app);
 
 // ── FULL IPL 2026 SCHEDULE ──
 const schedule = [
-    {date:"2026-03-28",team1:"RCB", team2:"SRH", time:"19:30",venue:"Bengaluru"},
-    {date:"2026-03-29",team1:"CSK", team2:"MI",  time:"19:30",venue:"Chennai"},
-    {date:"2026-03-30",team1:"DC",  team2:"KKR", time:"19:30",venue:"Delhi"},
-    {date:"2026-03-31",team1:"RR",  team2:"PBKS",time:"19:30",venue:"Jaipur"},
-    {date:"2026-04-01",team1:"GT",  team2:"LSG", time:"19:30",venue:"Ahmedabad"},
-    {date:"2026-04-02",team1:"SRH", team2:"CSK", time:"19:30",venue:"Hyderabad"},
-    {date:"2026-04-03",team1:"MI",  team2:"RCB", time:"19:30",venue:"Mumbai"},
-    {date:"2026-04-04",team1:"KKR", team2:"RR",  time:"15:30",venue:"Kolkata"},
-    {date:"2026-04-04",team1:"DC",  team2:"GT",  time:"19:30",venue:"Delhi"},
-    {date:"2026-04-05",team1:"PBKS",team2:"LSG", time:"15:30",venue:"Mohali"},
-    {date:"2026-04-05",team1:"CSK", team2:"SRH", time:"19:30",venue:"Chennai"},
-    {date:"2026-04-06",team1:"RCB", team2:"KKR", time:"19:30",venue:"Bengaluru"},
-    {date:"2026-04-07",team1:"GT",  team2:"MI",  time:"19:30",venue:"Ahmedabad"},
-    {date:"2026-04-08",team1:"RR",  team2:"DC",  time:"19:30",venue:"Jaipur"},
-    {date:"2026-04-09",team1:"LSG", team2:"RCB", time:"19:30",venue:"Lucknow"},
-    {date:"2026-04-10",team1:"SRH", team2:"KKR", time:"19:30",venue:"Hyderabad"},
-    {date:"2026-04-11",team1:"PBKS",team2:"MI",  time:"15:30",venue:"Mohali"},
-    {date:"2026-04-11",team1:"CSK", team2:"GT",  time:"19:30",venue:"Chennai"},
-    {date:"2026-04-12",team1:"DC",  team2:"LSG", time:"15:30",venue:"Delhi"},
-    {date:"2026-04-12",team1:"RR",  team2:"RCB", time:"19:30",venue:"Jaipur"},
-    {date:"2026-04-13",team1:"KKR", team2:"MI",  time:"19:30",venue:"Kolkata"},
-    {date:"2026-04-14",team1:"SRH", team2:"PBKS",time:"19:30",venue:"Hyderabad"},
-    {date:"2026-04-15",team1:"GT",  team2:"RR",  time:"19:30",venue:"Ahmedabad"},
-    {date:"2026-04-16",team1:"LSG", team2:"CSK", time:"19:30",venue:"Lucknow"},
-    {date:"2026-04-17",team1:"RCB", team2:"DC",  time:"19:30",venue:"Bengaluru"},
-    {date:"2026-04-18",team1:"MI",  team2:"SRH", time:"15:30",venue:"Mumbai"},
-    {date:"2026-04-18",team1:"PBKS",team2:"KKR", time:"19:30",venue:"Mohali"},
-    {date:"2026-04-19",team1:"GT",  team2:"CSK", time:"15:30",venue:"Ahmedabad"},
-    {date:"2026-04-19",team1:"RR",  team2:"LSG", time:"19:30",venue:"Jaipur"},
-    {date:"2026-04-20",team1:"DC",  team2:"SRH", time:"19:30",venue:"Delhi"},
-    {date:"2026-04-21",team1:"KKR", team2:"RCB", time:"19:30",venue:"Kolkata"},
-    {date:"2026-04-22",team1:"MI",  team2:"GT",  time:"19:30",venue:"Mumbai"},
-    {date:"2026-04-23",team1:"CSK", team2:"PBKS",time:"19:30",venue:"Chennai"},
-    {date:"2026-04-24",team1:"LSG", team2:"DC",  time:"19:30",venue:"Lucknow"},
-    {date:"2026-04-25",team1:"RCB", team2:"RR",  time:"15:30",venue:"Bengaluru"},
-    {date:"2026-04-25",team1:"SRH", team2:"MI",  time:"19:30",venue:"Hyderabad"},
-    {date:"2026-04-26",team1:"KKR", team2:"GT",  time:"15:30",venue:"Kolkata"},
-    {date:"2026-04-26",team1:"PBKS",team2:"DC",  time:"19:30",venue:"Mohali"},
-    {date:"2026-04-27",team1:"RR",  team2:"CSK", time:"19:30",venue:"Jaipur"},
-    {date:"2026-04-28",team1:"LSG", team2:"MI",  time:"19:30",venue:"Lucknow"},
-    {date:"2026-04-29",team1:"RCB", team2:"GT",  time:"19:30",venue:"Bengaluru"},
-    {date:"2026-04-30",team1:"KKR", team2:"CSK", time:"19:30",venue:"Kolkata"},
-    {date:"2026-05-01",team1:"DC",  team2:"RR",  time:"19:30",venue:"Delhi"},
-    {date:"2026-05-02",team1:"SRH", team2:"LSG", time:"15:30",venue:"Hyderabad"},
-    {date:"2026-05-02",team1:"MI",  team2:"PBKS",time:"19:30",venue:"Mumbai"},
-    {date:"2026-05-03",team1:"GT",  team2:"KKR", time:"15:30",venue:"Ahmedabad"},
-    {date:"2026-05-03",team1:"RCB", team2:"CSK", time:"19:30",venue:"Bengaluru"},
-    {date:"2026-05-04",team1:"RR",  team2:"SRH", time:"19:30",venue:"Jaipur"},
-    {date:"2026-05-05",team1:"DC",  team2:"MI",  time:"19:30",venue:"Delhi"},
-    {date:"2026-05-06",team1:"PBKS",team2:"GT",  time:"19:30",venue:"Mohali"},
-    {date:"2026-05-07",team1:"CSK", team2:"KKR", time:"19:30",venue:"Chennai"},
-    {date:"2026-05-08",team1:"LSG", team2:"RR",  time:"19:30",venue:"Lucknow"},
-    {date:"2026-05-09",team1:"SRH", team2:"RCB", time:"15:30",venue:"Hyderabad"},
-    {date:"2026-05-09",team1:"MI",  team2:"DC",  time:"19:30",venue:"Mumbai"},
-    {date:"2026-05-10",team1:"GT",  team2:"PBKS",time:"15:30",venue:"Ahmedabad"},
-    {date:"2026-05-10",team1:"KKR", team2:"LSG", time:"19:30",venue:"Kolkata"},
-    {date:"2026-05-12",team1:"Qualifier 1",team2:"TBD",time:"19:30",venue:"TBD"},
-    {date:"2026-05-13",team1:"Eliminator", team2:"TBD",time:"19:30",venue:"TBD"},
-    {date:"2026-05-15",team1:"Qualifier 2",team2:"TBD",time:"19:30",venue:"TBD"},
-    {date:"2026-05-17",team1:"FINAL",       team2:"TBD",time:"19:30",venue:"TBD"},
+    // Match 1 - Mar 28
+    {date:"2026-03-28",team1:"SRH",team2:"RCB", time:"19:30"},
+    // Match 2 - Mar 29 (Today)
+    {date:"2026-03-29",team1:"MI", team2:"KKR", time:"19:30"},
+    // Match 3 - Mar 30
+    {date:"2026-03-30",team1:"RR", team2:"CSK", time:"19:30"},
+    // Match 4 - Mar 31
+    {date:"2026-03-31",team1:"PBKS",team2:"GT", time:"19:30"},
+    // Match 5 - Apr 1
+    {date:"2026-04-01",team1:"LSG",team2:"DC",  time:"19:30"},
+    // Match 6 - Apr 2
+    {date:"2026-04-02",team1:"KKR",team2:"SRH", time:"19:30"},
+    // Match 7 - Apr 3
+    {date:"2026-04-03",team1:"CSK",team2:"PBKS",time:"19:30"},
+    // Match 8 - Apr 4
+    {date:"2026-04-04",team1:"DC", team2:"MI",  time:"15:30"},
+    // Match 9 - Apr 4
+    {date:"2026-04-04",team1:"GT", team2:"RR",  time:"19:30"},
+    // Match 10 - Apr 5
+    {date:"2026-04-05",team1:"SRH",team2:"LSG", time:"15:30"},
+    // Match 11 - Apr 5
+    {date:"2026-04-05",team1:"RCB",team2:"CSK", time:"19:30"},
+    // Match 12 - Apr 6
+    {date:"2026-04-06",team1:"KKR",team2:"PBKS",time:"19:30"},
+    // Match 13 - Apr 7
+    {date:"2026-04-07",team1:"MI", team2:"RR",  time:"19:30"},
+    // Match 14 - Apr 8
+    {date:"2026-04-08",team1:"DC", team2:"GT",  time:"19:30"},
+    // Match 15 - Apr 9
+    {date:"2026-04-09",team1:"LSG",team2:"KKR", time:"19:30"},
+    // Match 16 - Apr 10
+    {date:"2026-04-10",team1:"CSK",team2:"SRH", time:"19:30"},
+    // Match 17 - Apr 11
+    {date:"2026-04-11",team1:"RR", team2:"RCB", time:"19:30"},
+    // Match 18 - Apr 12
+    {date:"2026-04-12",team1:"GT", team2:"DC",  time:"19:30"},
+    // Match 19 - Apr 12
+    {date:"2026-04-12",team1:"PBKS",team2:"MI", time:"19:30"},
+    // Match 20 - Apr 13
+    {date:"2026-04-13",team1:"SRH",team2:"RR",  time:"19:30"},
+    // Match 21 - Apr 13
+    {date:"2026-04-13",team1:"SRH",team2:"RR",  time:"19:30"},
+    // Match 22 - Apr 14
+    {date:"2026-04-14",team1:"CSK",team2:"KKR", time:"19:30"},
+    // Match 23 - Apr 15
+    {date:"2026-04-15",team1:"RCB",team2:"LSG", time:"19:30"},
+    // Match 24 - Apr 16
+    {date:"2026-04-16",team1:"MI", team2:"PBKS",time:"19:30"},
+    // Match 25 - Apr 17
+    {date:"2026-04-17",team1:"GT", team2:"KKR", time:"19:30"},
+    // Match 26 - Apr 18
+    {date:"2026-04-18",team1:"RCB",team2:"DC",  time:"15:30"},
+    // Match 27 - Apr 18
+    {date:"2026-04-18",team1:"SRH",team2:"CSK", time:"19:30"},
+    // Match 28 - Apr 19
+    {date:"2026-04-19",team1:"KKR",team2:"RR",  time:"15:30"},
+    // Match 29 - Apr 19
+    {date:"2026-04-19",team1:"PBKS",team2:"LSG",time:"19:30"},
+    // Match 30 - Apr 20
+    {date:"2026-04-20",team1:"GT", team2:"MI",  time:"19:30"},
+    // Match 31 - Apr 21
+    {date:"2026-04-21",team1:"SRH",team2:"DC",  time:"19:30"},
+    // Match 32 - Apr 22
+    {date:"2026-04-22",team1:"LSG",team2:"RR",  time:"19:30"},
+    // Match 33 - Apr 23
+    {date:"2026-04-23",team1:"MI", team2:"CSK", time:"19:30"},
+    // Match 34 - Apr 24
+    {date:"2026-04-24",team1:"RCB",team2:"GT",  time:"19:30"},
+    // Match 35 - Apr 25
+    {date:"2026-04-25",team1:"DC", team2:"PBKS",time:"15:30"},
+    // Match 36 - Apr 25
+    {date:"2026-04-25",team1:"RR", team2:"SRH", time:"19:30"},
+    // Match 37 - Apr 26
+    {date:"2026-04-26",team1:"GT", team2:"CSK", time:"15:30"},
+    // Match 38 - Apr 26
+    {date:"2026-04-26",team1:"LSG",team2:"KKR", time:"19:30"},
+    // Match 39 - Apr 27
+    {date:"2026-04-27",team1:"DC", team2:"RCB", time:"19:30"},
+    // Match 40 - Apr 28
+    {date:"2026-04-28",team1:"PBKS",team2:"RR", time:"19:30"},
+    // Match 41 - Apr 29
+    {date:"2026-04-29",team1:"MI", team2:"SRH", time:"19:30"},
+    // Match 42 - Apr 30
+    {date:"2026-04-30",team1:"GT", team2:"RCB", time:"19:30"},
+    // Match 43 - May 1
+    {date:"2026-05-01",team1:"RR", team2:"DC",  time:"19:30"},
+    // Match 44 - May 2
+    {date:"2026-05-02",team1:"CSK",team2:"MI",  time:"19:30"},
+    // Match 45 - May 3
+    {date:"2026-05-03",team1:"SRH",team2:"KKR", time:"15:30"},
+    // Match 46 - May 3
+    {date:"2026-05-03",team1:"GT", team2:"PBKS",time:"19:30"},
+    // Match 47 - May 4
+    {date:"2026-05-04",team1:"MI", team2:"LSG", time:"19:30"},
+    // Match 48 - May 5
+    {date:"2026-05-05",team1:"DC", team2:"CSK", time:"19:30"},
+    // Match 49 - May 6
+    {date:"2026-05-06",team1:"SRH",team2:"PBKS",time:"19:30"},
+    // Match 50 - May 7
+    {date:"2026-05-07",team1:"LSG",team2:"RCB", time:"19:30"},
+    // Match 51 - May 8
+    {date:"2026-05-08",team1:"DC", team2:"KKR", time:"19:30"},
+    // Match 52 - May 9
+    {date:"2026-05-09",team1:"RR", team2:"GT",  time:"19:30"},
+    // Match 53 - May 10
+    {date:"2026-05-10",team1:"CSK",team2:"LSG", time:"15:30"},
+    // Match 54 - May 10
+    {date:"2026-05-10",team1:"RCB",team2:"MI",  time:"19:30"},
+    // Match 55 - May 11
+    {date:"2026-05-11",team1:"PBKS",team2:"DC", time:"19:30"},
+    // Match 56 - May 12
+    {date:"2026-05-12",team1:"GT", team2:"SRH", time:"19:30"},
+    // Match 57 - May 13
+    {date:"2026-05-13",team1:"RCB",team2:"KKR", time:"19:30"},
+    // Match 58 - May 14
+    {date:"2026-05-14",team1:"PBKS",team2:"MI", time:"19:30"},
+    // Match 59 - May 15
+    {date:"2026-05-15",team1:"LSG",team2:"CSK", time:"19:30"},
+    // Match 60 - May 16
+    {date:"2026-05-16",team1:"KKR",team2:"GT",  time:"19:30"},
+    // Match 61 - May 17
+    {date:"2026-05-17",team1:"PBKS",team2:"RCB",time:"15:30"},
+    // Match 62 - May 17
+    {date:"2026-05-17",team1:"DC", team2:"RR",  time:"19:30"},
+    // Match 63 - May 18
+    {date:"2026-05-18",team1:"CSK",team2:"SRH", time:"19:30"},
+    // Match 64 - May 19
+    {date:"2026-05-19",team1:"RR", team2:"LSG", time:"19:30"},
+    // Match 65 - May 20
+    {date:"2026-05-20",team1:"KKR",team2:"MI",  time:"19:30"},
+    // Match 66 - May 21
+    {date:"2026-05-21",team1:"CSK",team2:"GT",  time:"19:30"},
+    // Match 67 - May 22
+    {date:"2026-05-22",team1:"SRH",team2:"RCB", time:"19:30"},
+    // Match 68 - May 23
+    {date:"2026-05-23",team1:"LSG",team2:"PBKS",time:"19:30"},
+    // Match 69 - May 24
+    {date:"2026-05-24",team1:"MI", team2:"RR",  time:"15:30"},
+    // Match 70 - May 24
+    {date:"2026-05-24",team1:"KKR",team2:"DC",  time:"19:30"},
 ];
 
 function getTodayIST() {
